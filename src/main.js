@@ -1,46 +1,19 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
+import iview from 'iview'
 import router from './router'
-import iView from 'iview'
-import Util from './lib/util'
-import 'lib-flexible/flexible.js'
 import Vuex from 'vuex';
+import axios from './lib/ajax'
+import flexible from 'lib-flexible'
 import App from './App'
 import Cookies from 'js-cookie'
 import 'iview/dist/styles/iview.css'
 
-/* eslint-disable no-new */
+Vue.use(flexible);
 Vue.use(Vuex);
-Vue.use(iView);
-/*路由控制*/
-router.beforeEach((to,from,next)=>{
-  console.log(to.name)
-  // iView.LoadingBar.start();
-  Util.title(to.meta.title);
-  if (!Cookies.get('user') && to.name !== 'login') {  // 判断当前是否登录
-    // iView.LoadingBar.finish();
-    console.log(1)
-    next({
-      name: 'login'
-    });
-  }else if (Cookies.get('user') && to.name === 'login') {
-    console.log(2)
-    next({
-      name: 'HelloWorld'
-    });
-  }else{
-    console.log(3)
-    next()
-  }
+Vue.use(iview);
+Vue.prototype.$http=axios;
 
-});
 
-router.afterEach(() => {
-  // iView.LoadingBar.finish();
-
-  window.scrollTo(0, 0);
-});
 
 /*状态管理*/
 const store = new Vuex.Store({
@@ -48,28 +21,40 @@ const store = new Vuex.Store({
     userInfo:{
 
     },
+    netConfig:{
+      timeOut:'5000',
+      baseURL:'',
+      headers:{
+        contentType:"application/json;charset=utf-8",
+        ticket:""
+      }
+    }
   },
   getters: {
 
   },
   mutations: {
-
+    initNetWork(state,obj){
+      obj.url?state.netConfig.baseURL=obj.url:'';
+      obj.ticket?state.netConfig.headers.ticket=obj.ticket:'';
+      axios.init(state.netConfig)
+    },
+    getTicket(state){
+      state.netConfig.headers.ticket=Cookies.get('ticket')
+      axios.init(state.netConfig)
+    }
   }
 });
+
 
 
 new Vue({
   el: '#app',
-  router:router,
-  store:store,
-  render: h => h(App),
-  data: {
-    currentPageName: ''
-  },
-  mounted () {
-    this.currentPageName = this.$route.name;
-  },
-  created () {
-    Cookies.set('user','lrc')
+  router,
+  store,
+  template: '<App/>',
+  components: { App },
+  beforeCreate(){
+   this.$store.commit('getTicket')
   }
-});
+})

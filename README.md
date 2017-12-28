@@ -1,11 +1,21 @@
-# vue-template
+# iviewproject
 
-## 简介
-vue开发webapp框架，实现了自动适应各个移动设备，vue+vue-router+vux+iview+axios形成的一套webapp集成解决方案。
+> A Vue.js project
 
-## 项目运行
- - npm i
- - npm run dev
+## Build Setup
 
-## 项目上线打包
- - npm run build
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
+```
+
+For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

@@ -10,12 +10,34 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/dl': {
+        target: 'http://10.254.2.17:8080',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/dl': '/dl'
+        }
+      },
+      '/api':{
+        target: 'http://10.254.2.86:8088',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': '/'
+        }
+      },
+      /*'/api':{
+        target: 'http://10.254.2.194:8080',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': '/'
+        }
+      }*/
+    },
 
     // Various Dev Server settings
-    host: 'localhost', // can be overwritten by process.env.HOST
+    host: '0.0.0.0', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
-    autoOpenBrowser: true,
+    autoOpenBrowser: false,
     errorOverlay: true,
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
@@ -43,18 +65,18 @@ module.exports = {
 
   build: {
     // Template for index.html
-    index: path.resolve(__dirname, '../www/index.html'),
+    index: path.resolve(__dirname, '../../ServerCode/web/index.html'),
 
     // Paths
-    assetsRoot: path.resolve(__dirname, '../www'),
+    assetsRoot: path.resolve(__dirname, '../../ServerCode/web'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '',
+    assetsPublicPath: '/web',
 
     /**
      * Source Maps
      */
 
-    productionSourceMap: false,
+    productionSourceMap: true,
     // https://webpack.js.org/configuration/devtool/#production
     devtool: '#source-map',
 
