@@ -3,12 +3,11 @@ import iview from 'iview'
 import router from './router'
 import Vuex from 'vuex';
 import axios from './lib/ajax'
-import flexible from 'lib-flexible'
+import 'lib-flexible'
 import App from './App'
 import Cookies from 'js-cookie'
 import 'iview/dist/styles/iview.css'
 
-Vue.use(flexible);
 Vue.use(Vuex);
 Vue.use(iview);
 Vue.prototype.$http=axios;

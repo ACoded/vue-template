@@ -11,12 +11,7 @@ exports.assetsPath = function (_path) {
 
   return path.posix.join(assetsSubDirectory, _path)
 }
-const px2remLoader = {
-  loader: 'px2rem-loader',
-  options: {
-    remUnit: 37.5
-  }
-};
+
 exports.cssLoaders = function (options) {
   options = options || {}
 
@@ -36,7 +31,7 @@ exports.cssLoaders = function (options) {
 
   // generate loader string to be used with extract text plugin
   function generateLoaders (loader, loaderOptions) {
-    const loaders = [cssLoader,px2remLoader];
+    const loaders = options.usePostCSS ? [cssLoader, postcssLoader] : [cssLoader]
 
     if (loader) {
       loaders.push({
