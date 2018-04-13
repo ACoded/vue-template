@@ -6,7 +6,11 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "cordova build android"
+        "package": "cd invoiceview && npm run build && cordova build android",
+        "android": "cordova build android",
+        "hotLoad": "cordova-hcp build",
+        "build": "cd invoiceview && npm run build",
+        "dev": "cd invoiceview && npm run dev",
     },
     "author": "Apache Cordova Team",
     "license": "Apache-2.0",
